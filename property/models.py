@@ -8,6 +8,11 @@ class Flat(models.Model):
     owners_phonenumber = models.CharField("Номер владельца", max_length=20)
     new_building = models.NullBooleanField("New building", db_index=True)
     created_at = models.DateTimeField("Когда создано объявление", default=timezone.now, db_index=True)
+    user = models.ManyToManyField(User,
+                                  verbose_name="Кто лайкнул:",
+                                  related_name="liked_flats",
+                                  blank=True,
+                                  null=True)
 
     description = models.TextField("Текст объявления", blank=True)
     price = models.IntegerField("Цена квартиры", db_index=True)
