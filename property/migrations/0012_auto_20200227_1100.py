@@ -7,9 +7,10 @@ def fill_owners(apps, schema_editor):
     flats = apps.get_model('property', 'Flat')
     owners = apps.get_model('property', 'Owner')
     for flat in flats.objects.all():
-        flat_owner = owners.objects.filter(owner_name=flat.owner_deprecated)
-        for owner in flat_owner:
-            owner.owners_flats.add(flat)
+        flat_owner = owners.objects.get(owner_name=flat.owner_deprecated,
+                                        owner_phone_pure=flat.owner_phone_pure)
+        flat_owner.owners_flats.add(flat)
+
 
 
 class Migration(migrations.Migration):
@@ -18,5 +19,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(fill_owners)
+        migrations.RunPython(fill_owners),
     ]

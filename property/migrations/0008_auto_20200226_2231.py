@@ -10,7 +10,8 @@ def filter_phonenumbers(apps, schema_editor):
     for flat in flats.objects.all():
         phone_number = phonenumbers.parse(str(flat.owners_phonenumber), 'RU')
         if phonenumbers.is_valid_number(phone_number):
-            flats.objects.filter(owners_phonenumber=flat.owners_phonenumber).update(owner_phone_pure=phone_number)
+            flat.owner_phone_pure=phone_number
+            flat.save()
 
 
 class Migration(migrations.Migration):

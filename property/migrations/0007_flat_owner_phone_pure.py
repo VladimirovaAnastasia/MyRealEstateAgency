@@ -2,7 +2,7 @@
 
 from django.db import migrations
 import phonenumber_field.modelfields
-
+import phonenumbers
 
 class Migration(migrations.Migration):
 
